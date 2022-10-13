@@ -30,15 +30,17 @@ function createCardValues(item){
     }
     btnClear.id = item.id
     trash.src = "../../assets/trash (1).png"
+    trash.id = item.id
 
 }
 
 function handleValues(list){
     valueList.innerHTML = ""
-    for (let i = 0; i < list.length; i++){
-        let item = list[i]
-        createCardValues(item)
-    }
+    // for (let i = 0; i < list.length; i++){
+    //     let item = list[i]
+    //     createCardValues(item)
+    // }
+    list.forEach(element => createCardValues(element));
 
     const totalValues = document.querySelector(".summary__sum__value")
     totalValues.innerText = `R$ ${list.reduce((preVal, elem) => parseFloat(preVal) + parseFloat(elem.value), 0).toFixed(2)}`
@@ -109,22 +111,38 @@ const btnEntrances = document.querySelector(".summary__button__entrances")
 
 btnEntrances.addEventListener("click", ()=>{
     let entrancesValuesList = []
-    for(let i = 0; i<insertedValues.length; i++){
-        if(insertedValues[i].categoryID == 1){
-            entrancesValuesList.push(insertedValues[i])
-            handleValues(entrancesValuesList)
-        }
+    // for(let i = 0; i<insertedValues.length; i++){
+    //     if(insertedValues[i].categoryID == 1){
+    //         entrancesValuesList.push(insertedValues[i])
+    //         handleValues(entrancesValuesList)
+    //     }
+    // }
+    insertedValues.forEach(element => { 
+        if(element.categoryID == 1){
+        entrancesValuesList.push(element)
+        handleValues(entrancesValuesList)
     }
+        
+    });
+    
+    handleValues(entrancesValuesList)
 })
 
 const btnExitsValues = document.querySelector(".summary__button__exits")
 
 btnExitsValues.addEventListener("click", ()=>{
     let exitsValuesList = []
-    for(let i = 0; i<insertedValues.length; i++){
-        if(insertedValues[i].categoryID == 2){
-            exitsValuesList.push(insertedValues[i])
+    // for(let i = 0; i<insertedValues.length; i++){
+    //     if(insertedValues[i].categoryID == 2){
+    //         exitsValuesList.push(insertedValues[i])
+    //         handleValues(exitsValuesList)
+    //     }
+    // }
+    insertedValues.forEach(element=>{
+        if(element.categoryID == 2){
+            exitsValuesList.push(element)
+            console.log(exitsValuesList)
             handleValues(exitsValuesList)
         }
-    }
+    })
 })
